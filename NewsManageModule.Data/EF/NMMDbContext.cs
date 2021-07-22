@@ -19,7 +19,7 @@ namespace NewsManageModule.Data.EF
             modelBuilder.ApplyConfiguration(new UserConfig());
             modelBuilder.ApplyConfiguration(new PostConfig());
             modelBuilder.ApplyConfiguration(new TopicConfig());
-            modelBuilder.ApplyConfiguration(new PostInTopicConfig);
+            modelBuilder.ApplyConfiguration(new PostInTopicConfig());
             modelBuilder.ApplyConfiguration(new HistoryConfig());
             modelBuilder.ApplyConfiguration(new ResourceConfig());
         }

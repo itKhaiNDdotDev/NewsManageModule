@@ -18,9 +18,9 @@ namespace NewsManageModule.Data.Configurations
             builder.Property(h => h.OldHeader).IsRequired().HasMaxLength(300).IsUnicode(true);
             builder.Property(h => h.NewHeader).IsRequired().HasMaxLength(300).IsUnicode(true);
             builder.Property(c => c.OldContent).IsRequired().IsUnicode(true);
-            builder.Property(c => c.OldContent).IsRequired().IsUnicode(true);
+            builder.Property(c => c.NewContent).IsRequired().IsUnicode(true);
             builder.HasOne(p => p.Post).WithMany(e => e.Histories).HasForeignKey(fk => fk.ID);  //1 Post - can have - many Histories (Edits)
-            builder.HasOne(u => u.Editor).WithMany(e => e.Edits).HasForeignKey(fk => fk.UID);   //1 Editor (User) - can do - many Edits (Histories)
+            //builder.HasOne(u => u.Editor).WithMany(e => e.Edits).HasForeignKey(fk => fk.UID);   //1 Editor (User) - can do - many Edits (Histories)
         }
     }
 }

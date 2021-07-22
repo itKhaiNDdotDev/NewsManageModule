@@ -13,7 +13,7 @@ namespace NewsManageModule.Data.Configurations
         {
             //throw new NotImplementedException();
             builder.ToTable("PostsInTopics");
-            builder.HasKey(i => new { i.ID, i.TID );
+            builder.HasKey(i => new { i.ID, i.TID } );
             builder.HasOne(p => p.Post).WithMany(pt => pt.PostInTopics).HasForeignKey(fk => fk.ID);
             builder.HasOne(t => t.Topic).WithMany(pt => pt.PostsInTopic).HasForeignKey(fk => fk.TID);
         }

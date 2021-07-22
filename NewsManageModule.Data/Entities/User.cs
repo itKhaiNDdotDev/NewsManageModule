@@ -13,6 +13,6 @@ namespace NewsManageModule.Data.Entities
         public string Password { get; set; }    //(for login)
         public DateTime RegistDate { get; set; }
         public List<Post> Posts { get; set; }  //A User (1) - can create - ('n') many Posts (News)
-        public List<History> Edits { get; set; }    //A User {1} - can do - ('n') edit tasks (Histories)
+        //public List<History> Edits { get; set; }    //A User {1} - can do - ('n') edit tasks (Histories)  ====== ERROR
     }
 }
