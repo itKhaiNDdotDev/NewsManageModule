@@ -12,7 +12,7 @@ namespace NewsManageModule.Data.Entities
         public string Fullname { get; set; }    //Public name of Crator
         public string Password { get; set; }    //(for login)
         public DateTime RegistDate { get; set; }
-        List<Post> Posts { get; set; }  //A User (1) - can create - ('n') many Posts (News)
-        List<History> Edit { get; set; }    //A User {1} - can do - ('n') edit tasks (Histories)
+        public List<Post> Posts { get; set; }  //A User (1) - can create - ('n') many Posts (News)
+        public List<History> Edits { get; set; }    //A User {1} - can do - ('n') edit tasks (Histories)
     }
 }

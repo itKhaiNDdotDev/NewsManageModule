@@ -11,7 +11,7 @@ namespace NewsManageModule.Data.Entities
         //public int TID { get; set; }    //Topic ID - FK
         public string Head { get; set; }
         public string Content { get; set; }
-        //public int UID { get; set; }    //Creator - User ID - FK
+        public int UID { get; set; }    //Creator - User ID - FK
         public DateTime Time { get; set; }
         public int ViewCount { get; set; }
         public List<History> Histories { get; set; }    //1 Post relationships whith 'n' EditVersions (Histories)

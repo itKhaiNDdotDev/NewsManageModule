@@ -8,8 +8,8 @@ namespace NewsManageModule.Data.Entities
     public class History
     {
         public int HID { get; set; }    //History ID - PK
-        //public int ID { get; set; } //Post (ID) is edited - FK
-        //public int UID { get; set; }    //User (ID) edit post - FK
+        public int ID { get; set; } //Post (ID) is edited - FK
+        public int UID { get; set; }    //User (ID) edit post - FK
         public DateTime EditTime { get; set; }  //Edit time
         public string OldHeader { get; set; }
         public string NewHeader { get; set; }
