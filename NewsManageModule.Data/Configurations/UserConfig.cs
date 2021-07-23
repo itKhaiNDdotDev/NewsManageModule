@@ -13,11 +13,11 @@ namespace NewsManageModule.Data.Configurations
         {
             //throw new NotImplementedException();
             builder.ToTable("Users");
-            builder.HasKey(i => i.UID);
-            builder.Property(u => u.Username).IsRequired().HasMaxLength(30).IsUnicode(false);
-            builder.Property(n => n.Fullname).IsRequired().HasMaxLength(60);
-            builder.Property(k => k.Password).IsRequired().IsUnicode(false);
-            builder.Property(d => d.RegistDate).IsRequired();
+            //builder.HasKey(i => i.UID);
+            //builder.Property(u => u.Username).IsRequired().HasMaxLength(30).IsUnicode(false);
+            builder.Property(n => n.Fullname).IsRequired().HasMaxLength(60).IsUnicode(true);
+            //builder.Property(k => k.Password).IsRequired().IsUnicode(false);
+            //builder.Property(d => d.RegistDate).IsRequired();
         }
     }
 }

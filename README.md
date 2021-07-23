@@ -12,6 +12,7 @@
 - Microsoft.EntityFrameworkCore.Tools  (v2.1.14)
 - Microsoft.Extensions.Configuration.FileExtensions (v2.1.1)
 - Microsoft.Extensions.Configuration.Json (v2.1.1)
+- Microsoft.AspNetCore.Identity.EntityFrameworkCore (v2.1.6)
 
 ## More Info:
 - Dev: Nguyễn Duy Khai (itKhaiND.Dev)
