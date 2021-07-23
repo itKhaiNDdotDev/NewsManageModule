@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsManageModule.Data.Configurations;
 using NewsManageModule.Data.Entities;
+using NewsManageModule.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,6 +23,8 @@ namespace NewsManageModule.Data.EF
             modelBuilder.ApplyConfiguration(new PostInTopicConfig());
             modelBuilder.ApplyConfiguration(new HistoryConfig());
             modelBuilder.ApplyConfiguration(new ResourceConfig());
+
+            modelBuilder.Seed();
         }
 
         public DbSet<User> Users { get; set; }
