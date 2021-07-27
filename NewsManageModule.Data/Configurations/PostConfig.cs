@@ -14,6 +14,7 @@ namespace NewsManageModule.Data.Configurations
             //throw new NotImplementedException();
             builder.ToTable("Post");
             builder.HasKey(i => i.ID);
+            builder.Property(i => i.ID).UseSqlServerIdentityColumn();
             builder.Property(h => h.Head).IsRequired().HasMaxLength(300).IsUnicode(false);
             builder.Property(c => c.Content).IsUnicode().IsUnicode();
             builder.Property(t => t.Time).IsRequired();

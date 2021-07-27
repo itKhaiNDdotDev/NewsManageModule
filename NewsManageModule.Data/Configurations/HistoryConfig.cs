@@ -14,6 +14,7 @@ namespace NewsManageModule.Data.Configurations
             //throw new NotImplementedException();
             builder.ToTable("Histories");
             builder.HasKey(i => i.HID);
+            builder.Property(i => i.HID).UseSqlServerIdentityColumn();
             builder.Property(t => t.EditTime).IsRequired();
             builder.Property(h => h.OldHeader).IsRequired().HasMaxLength(300).IsUnicode(true);
             builder.Property(h => h.NewHeader).IsRequired().HasMaxLength(300).IsUnicode(true);
