@@ -14,6 +14,7 @@ namespace NewsManageModule.Data.Configurations
             //throw new NotImplementedException();
             builder.ToTable("Topics");
             builder.HasKey(i => i.TID);
+            builder.Property(i => i.TID).UseSqlServerIdentityColumn();
             builder.Property(n => n.TName).IsRequired().HasMaxLength(100).IsUnicode(true);
         }
     }
