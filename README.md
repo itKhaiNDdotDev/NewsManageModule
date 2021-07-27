@@ -16,11 +16,11 @@
 #### For ./..Services:
 **Nuget Packages:**
 - Microsoft.AspNetCore.Http.Features (v2.1.1)
-**Other Libraties:**
+**Other Libraties:**  
 - *using* System.Threading.Tasks;
 - *using* System.Linq;
 - *using* Microsoft.EntityFrameworkCore;
-**References:**
+**References:**  
 - NewsManageModule.Data
 - NewsManageModule.Helpers
 - NewsManageModule.ViewModels
