@@ -15,15 +15,18 @@
 - Microsoft.AspNetCore.Identity.EntityFrameworkCore (v2.1.6)
 #### For ./..Services:
 **Nuget Packages:**
-- Microsoft.AspNetCore.Http.Features (v2.1.1)  
+- Microsoft.AspNetCore.Http.Features (v2.1.1)
+
 **Other Libraties:**
 - *using* System.Threading.Tasks;
 - *using* System.Linq;
-- *using* Microsoft.EntityFrameworkCore;  
+- *using* Microsoft.EntityFrameworkCore;
+
 **References:**  
 - NewsManageModule.Data
 - NewsManageModule.Helpers
-- NewsManageModule.ViewModels  
+- NewsManageModule.ViewModels
+
 **Add Framework (Edit file .csproj):**  
 Add the following:
 *<ItemGroup>
