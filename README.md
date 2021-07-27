@@ -29,13 +29,12 @@
 
 **Add Framework (Edit file .csproj):**  
 Add the following:  
-
-*<ItemGroup>
+*"<ItemGroup>
 		<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" /> -->
 		<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" /> -->
 		<!-- <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.17" /> -->
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-</ItemGroup>*
+</ItemGroup>"*
 ## More Info
 - Dev: Nguyễn Duy Khai (itKhaiND.Dev)
 -- Contact: [Facebook](https://www.facebook.com/itKhaiND.Dev)
