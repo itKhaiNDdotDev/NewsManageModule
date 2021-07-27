@@ -28,10 +28,10 @@
 - NewsManageModule.ViewModels
 
 **Add Framework (Edit file .csproj):**  
-Add *<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" /> -->
+<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" /> -->
 <!-- <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" /> -->
 <!-- <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.17" /> -->
-FrameworkReference Include="Microsoft.AspNetCore.App"* tag to "ItemGroup" tag.
+Add *FrameworkReference Include="Microsoft.AspNetCore.App"* tag to "ItemGroup" tag.
 ## More Info
 - Dev: Nguyễn Duy Khai (itKhaiND.Dev)
 -- Contact: [Facebook](https://www.facebook.com/itKhaiND.Dev)
