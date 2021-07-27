@@ -16,15 +16,15 @@
 #### For ./..Services:
 **Nuget Packages:**
 - Microsoft.AspNetCore.Http.Features (v2.1.1)  
-**Other Libraties:**  
+**Other Libraties:**
 - *using* System.Threading.Tasks;
 - *using* System.Linq;
-- *using* Microsoft.EntityFrameworkCore;
+- *using* Microsoft.EntityFrameworkCore;  
 **References:**  
 - NewsManageModule.Data
 - NewsManageModule.Helpers
-- NewsManageModule.ViewModels
-**Add Framework (Edit file .csproj):**
+- NewsManageModule.ViewModels  
+**Add Framework (Edit file .csproj):**  
 Add the following:
 *<ItemGroup>
 		<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" /> -->
