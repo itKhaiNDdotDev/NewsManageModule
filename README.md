@@ -6,14 +6,14 @@
 - Entity Framwork Core
 
 ## Packages and Libraries
-#### Nuget Packages for ./..Data:
+### Nuget Packages for ./..Data:
 - Microsoft.EntityFrameworkCore.SqlServer  (v2.1.14)
 - Microsoft.EntityFrameworkCore.Design  (v2.1.14)
 - Microsoft.EntityFrameworkCore.Tools  (v2.1.14)
 - Microsoft.Extensions.Configuration.FileExtensions (v2.1.1)
 - Microsoft.Extensions.Configuration.Json (v2.1.1)
 - Microsoft.AspNetCore.Identity.EntityFrameworkCore (v2.1.6)
-#### For ./..Services:
+### For ./..Services:
 **Nuget Packages:**
 - Microsoft.AspNetCore.Http.Features (v2.1.1)
 
@@ -28,7 +28,7 @@
 - NewsManageModule.ViewModels
 
 **Add Framework (Edit file .csproj):**  
-Add the following:
+Add the following:  
 *<ItemGroup>
 		<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" /> -->
 		<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" /> -->
