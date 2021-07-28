@@ -101,12 +101,12 @@ namespace NewsManageModule.Services.Catalog.Posts
                 throw new NMMException("No content exists on the system!");
             var data = await allPosts.Skip((request.pageIndex - 1) * (request.pageSize)).Take(request.pageSize)
                 .Select(l => new ListPostsViewModel()
-                 { 
-                    TID = l.t.TID,
-                    TName = l.t.TName,
+                 {
                     ID = l.p.ID,
-                    Head = l.p.Head
-                 }).ToListAsync();
+                    Head = l.p.Head,
+                    TID = l.t.TID,
+                    TName = l.t.TName
+                }).ToListAsync();
             var pageResults = new PageResult<ListPostsViewModel>
             {
                 TotalRecord = totalRow,
