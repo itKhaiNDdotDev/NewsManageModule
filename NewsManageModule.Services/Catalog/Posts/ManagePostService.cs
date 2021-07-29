@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using System.IO;
 using NewsManageModule.Services.Common;
+using NewsManageModule.ViewModels.Catalog.Resources;
 
 namespace NewsManageModule.Services.Catalog.Posts
 {
@@ -24,6 +25,26 @@ namespace NewsManageModule.Services.Catalog.Posts
         {
             _context = context;
             _storageService = storageService;
+        }
+
+        public async Task<int> AddImage(int ID, PostImageAddRequest request)
+        {
+            //throw new NotImplementedException();
+            var image = new Resource()
+            {
+                Caption = request.Caption,
+                ImportDate = DateTime.Now,
+                IsAvatar = request.IsAvatar,
+                ID = ID, //ID (post) in image (new Resource = ID (Post) querry in parametter
+            };
+            if (request.ImageFile != null)
+            {
+                image.URL = await this.SaveFile(request.ImageFile);
+                image.FileSize = request.ImageFile.Length;
+            }
+            _context.Resources.Add(image);
+            await _context.SaveChangesAsync();
+            return image.RID;
         }
 
         public async Task AddViewCount(int ID)
@@ -39,12 +60,12 @@ namespace NewsManageModule.Services.Catalog.Posts
         public async Task<int> Create(PostCreateRequest request)
         {
             //throw new NotImplementedException();
-            var post = new Post
+            var post = new Post()
             {
                 Head = request.Head,
                 Content = request.Content,
                 Time = DateTime.Now,
-                ViewCount = 0
+                ViewCount = 0,
                 //UserId
                 //TopicID
             };
@@ -52,11 +73,11 @@ namespace NewsManageModule.Services.Catalog.Posts
             if (request.Image != null)
             {
                 int i = 0;
-                post.Resources = new List<Resource>
+                post.Resources = new List<Resource>()
                 {
                     new Resource()
                     {
-                        ID = post.ID,
+                        //ID = post.ID,
                         Caption = "post_id: " + post.ID.ToString() + "image " + i++.ToString(),
                         FileSize = request.Image.Length,
                         ImportDate = DateTime.Now,
@@ -87,6 +108,7 @@ namespace NewsManageModule.Services.Catalog.Posts
             return await _context.SaveChangesAsync();
         }
 
+        //====================================================================Public==========
         public async Task<PageResult<ListPostsViewModel>> GetAll(PagingRequestBase request)
         {
             //throw new NotImplementedException();
@@ -124,7 +146,7 @@ namespace NewsManageModule.Services.Catalog.Posts
                         select new { p, pt };
             if (!string.IsNullOrEmpty(request.keyword))
                 query = query.Where(r => (r.p.Head.Contains(request.keyword)) || (r.p.Content.Contains(request.keyword)));
-            if (request.topicIDs.Count > 0)
+            if (request.topicIDs.Count > 0)                     //==================RUNTIME EXEPTION=========================
                 query = query.Where(p => request.topicIDs.Contains(p.pt.TID));
             int totalRow = await query.CountAsync();
             if (query == null || totalRow == 0)
@@ -170,6 +192,50 @@ namespace NewsManageModule.Services.Catalog.Posts
             return postViewModel;
         }
 
+        public async Task<List<ResourceViewModel>> GetListImages(int ID)
+        {
+            //throw new NotImplementedException();
+            return await _context.Resources.Where(i => i.ID == ID)
+                .Select(r => new ResourceViewModel()
+                {
+                    RID = r.RID,
+                    Caption = r.Caption,
+                    ImportDate = r.ImportDate,
+                    FileSize = r.FileSize,
+                    IsAvatar = r.IsAvatar,
+                    URL = r.URL,
+                    ID = r.ID
+                }).ToListAsync();
+        }
+
+        public async Task<ResourceViewModel> GetResourceByID(int RID)
+        {
+            //throw new NotImplementedException();
+            var res = await _context.Resources.FindAsync(RID);
+            if (res == null)
+                throw new NMMException($"Resource with ID = {RID} is not exist");
+            return new ResourceViewModel()
+            {
+                RID = res.RID,
+                Caption = res.Caption,
+                ImportDate = res.ImportDate,
+                FileSize = res.FileSize,
+                IsAvatar = res.IsAvatar,
+                URL = res.URL,
+                ID = res.ID
+            };
+        }
+
+        public async Task<int> RemoveImage(int RID)
+        {
+            //throw new NotImplementedException();
+            var image = await _context.Resources.FindAsync(RID);
+            if (image == null)
+                throw new NMMException($"Resource with ID = {RID} is not exist");
+            _context.Resources.Remove(image);
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<int> Update(PostUpdateRequest request)
         {
             //throw new NotImplementedException();
@@ -190,6 +256,7 @@ namespace NewsManageModule.Services.Catalog.Posts
             //};
             post.Head = request.Head;
             post.Content = request.Content;
+            post.Time = post.Time;
             //post.PostInTopics
             //_context.Histories.Add(post.Histories);
             //Update Images
@@ -205,6 +272,21 @@ namespace NewsManageModule.Services.Catalog.Posts
                 }
             }
             _context.Posts.Update(post);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> UpdateImage(int RID, PostImageUpdateRequest request)
+        {
+            //throw new NotImplementedException();
+            var image = await _context.Resources.FindAsync(RID);
+            if (image == null)
+                throw new NMMException($"Resource with ID = {RID} is not exist");
+            if (request.ImageFile != null)
+            {
+                image.URL = await this.SaveFile(request.ImageFile);
+                image.FileSize = request.ImageFile.Length;
+            }
+            _context.Resources.Update(image);
             return await _context.SaveChangesAsync();
         }
 
