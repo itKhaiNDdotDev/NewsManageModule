@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using NewsManageModule.Data.EF;
 using NewsManageModule.Services.Catalog.Posts;
+using NewsManageModule.Services.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,9 @@ namespace NewsManageModule.BackendAPI
             });
 
             //DI
-            services.AddTransient< IPublicPostService, PublicPostService>();
+            services.AddTransient<IPublicPostService, PublicPostService>();
+            services.AddTransient<IManagePostService, ManagePostService>();
+            services.AddTransient<IStorageService, FileStorageService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>

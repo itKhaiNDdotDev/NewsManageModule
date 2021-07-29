@@ -1,4 +1,5 @@
 ﻿using NewsManageModule.ViewModels.Catalog.Posts;
+using NewsManageModule.ViewModels.Catalog.Resources;
 using NewsManageModule.ViewModels.Common;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,10 @@ namespace NewsManageModule.Services.Catalog.Posts
         Task<int> Update(PostUpdateRequest request);
         Task AddViewCount(int ID);
         Task<int> Delete(int ID);
+        Task<ResourceViewModel> GetResourceByID(int RID);
+        Task<int> AddImage(int ID, PostImageAddRequest request);
+        Task<int> UpdateImage(int RID, PostImageUpdateRequest request);
+        Task<int> RemoveImage(int RID);
+        Task<List<ResourceViewModel>> GetListImages(int ID);
     }
 }
