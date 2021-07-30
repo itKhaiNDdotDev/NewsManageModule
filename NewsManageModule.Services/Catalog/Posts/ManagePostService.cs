@@ -143,11 +143,19 @@ namespace NewsManageModule.Services.Catalog.Posts
             var query = from p in _context.Posts
                         join pt in _context.PostsInTopics on p.ID equals pt.ID
                         join t in _context.Topics on pt.TID equals t.TID
-                        select new { p, pt };
+                        select new { p, pt, t };
             if (!string.IsNullOrEmpty(request.keyword))
                 query = query.Where(r => (r.p.Head.Contains(request.keyword)) || (r.p.Content.Contains(request.keyword)));
-            if (request.topicIDs.Count > 0)                     //==================RUNTIME EXEPTION=========================
+            if (request.topicIDs.Count() == 0)                     //==================RUNTIME EXEPTION=========================
+            {
+                request.topicIDs = query.Select(t => t.t.TID).ToList();
                 query = query.Where(p => request.topicIDs.Contains(p.pt.TID));
+                //query = query.Where(p => p.p.ID == p.pt.ID);
+            }
+            else
+            {
+                query = query.Where(p => request.topicIDs.Contains(p.pt.TID));
+            }  
             int totalRow = await query.CountAsync();
             if (query == null || totalRow == 0)
                 throw new NMMException("No result is found!");
@@ -281,11 +289,16 @@ namespace NewsManageModule.Services.Catalog.Posts
             var image = await _context.Resources.FindAsync(RID);
             if (image == null)
                 throw new NMMException($"Resource with ID = {RID} is not exist");
+            image.Caption = request.Caption;
+            image.IsAvatar = request.IsAvatar;
             if (request.ImageFile != null)
             {
                 image.URL = await this.SaveFile(request.ImageFile);
                 image.FileSize = request.ImageFile.Length;
+                image.ImportDate = DateTime.Now;
             }
+            else
+                image.ImportDate = image.ImportDate;
             _context.Resources.Update(image);
             return await _context.SaveChangesAsync();
         }
