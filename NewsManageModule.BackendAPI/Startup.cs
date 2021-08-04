@@ -2,14 +2,18 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using NewsManageModule.Data.EF;
+using NewsManageModule.Data.Entities;
 using NewsManageModule.Services.Catalog.Posts;
+using NewsManageModule.Services.Catalog.Topics;
 using NewsManageModule.Services.Common;
+using NewsManageModule.Services.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,9 +44,15 @@ namespace NewsManageModule.BackendAPI
             });
 
             //DI
+            services.AddIdentity<User, Role>().AddEntityFrameworkStores<NMMDbContext>().AddDefaultTokenProviders();
             services.AddTransient<IPublicPostService, PublicPostService>();
             services.AddTransient<IManagePostService, ManagePostService>();
             services.AddTransient<IStorageService, FileStorageService>();
+            services.AddTransient<UserManager<User>, UserManager<User>>();
+            services.AddTransient<SignInManager<User>, SignInManager<User>>();
+            services.AddTransient<RoleManager<Role>, RoleManager<Role>>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITopicService, TopicService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
