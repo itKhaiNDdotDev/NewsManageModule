@@ -12,7 +12,7 @@ namespace NewsManageModule.Data.Configurations
         public void Configure(EntityTypeBuilder<Post> builder)
         {
             //throw new NotImplementedException();
-            builder.ToTable("Post");
+            builder.ToTable("Posts");
             builder.HasKey(i => i.ID);
             builder.Property(i => i.ID).UseSqlServerIdentityColumn();
             builder.Property(h => h.Head).IsRequired().HasMaxLength(300).IsUnicode(true);
