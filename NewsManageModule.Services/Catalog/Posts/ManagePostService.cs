@@ -117,13 +117,13 @@ namespace NewsManageModule.Services.Catalog.Posts
                 join pt in _context.PostsInTopics on p.ID equals pt.ID
                 join t in _context.Topics on pt.TID equals t.TID
                 //user
-                select new { p, t};
+                select new { p, t };
             int totalRow = await allPosts.CountAsync();
             if (allPosts == null || totalRow == 0)
                 throw new NMMException("No content exists on the system!");
             var data = await allPosts.Skip((request.pageIndex - 1) * (request.pageSize)).Take(request.pageSize)
                 .Select(l => new ListPostsViewModel()
-                 {
+                {
                     ID = l.p.ID,
                     Head = l.p.Head,
                     TID = l.t.TID,
@@ -146,9 +146,9 @@ namespace NewsManageModule.Services.Catalog.Posts
                         select new { p, pt, t };
             if (!string.IsNullOrEmpty(request.keyword))
                 query = query.Where(r => (r.p.Head.Contains(request.keyword)) || (r.p.Content.Contains(request.keyword)));
-            if (request.topicIDs.Count() == 0)                     //==================RUNTIME EXEPTION=========================
+            if (request.topicIDs.Count() == 0 || request.topicIDs == null)                     //==================RUNTIME EXEPTION=========================
             {
-                request.topicIDs = query.Select(t => t.t.TID).ToList();
+                request.topicIDs = query.Select(t => t.t.TID).ToList<int>();
                 query = query.Where(p => request.topicIDs.Contains(p.pt.TID));
                 //query = query.Where(p => p.p.ID == p.pt.ID);
             }
@@ -169,7 +169,7 @@ namespace NewsManageModule.Services.Catalog.Posts
                     ViewCount = x.p.ViewCount
                     //UserID, /Topic?/
                 }).ToListAsync();
-            var pageResult = new PageResult<PostViewModel>
+            var pageResult = new PageResult<PostViewModel>()
             {
                 TotalRecord = totalRow,
                 Items = data
@@ -198,6 +198,19 @@ namespace NewsManageModule.Services.Catalog.Posts
                 //Topics = topics
             };
             return postViewModel;
+        }
+
+        public async Task<List<HistoryViewModel>> GetEditHistories(int ID)
+        {
+            //throw new NotImplementedException();
+            return await _context.Histories.Where(i => i.ID == ID).Select(h => new HistoryViewModel()
+            {
+                EditTime = h.EditTime,
+                OldHeader = h.OldHeader,
+                NewHeader = h.NewHeader,
+                OldContent = h.OldContent,
+                NewContent = h.NewContent
+            }).ToListAsync();
         }
 
         public async Task<List<ResourceViewModel>> GetListImages(int ID)
@@ -250,23 +263,23 @@ namespace NewsManageModule.Services.Catalog.Posts
             var post = await _context.Posts.FindAsync(request.ID);
             if (post == null)
                 throw new NMMException($"Post with ID = {request.ID} is not exist");
-            //post.Histories = new List<History>
-            //{
-            //    new History
-            //    {
-            //        ID = request.ID,
-            //        EditTime = DateTime.Now,
-            //        OldHeader = post.Head,
-            //        NewHeader = request.Head,
-            //        OldContent = post.Content,
-            //        NewContent = request.Content
-            //    }
-            //};
+            var history = new History
+            {
+                ID = request.ID,
+                EditTime = DateTime.Now,
+                OldHeader = post.Head,
+                NewHeader = request.Head,
+                OldContent = post.Content,
+                NewContent = request.Content
+            };
+            _context.Histories.Add(history);
+            await _context.SaveChangesAsync();
+
             post.Head = request.Head;
             post.Content = request.Content;
             post.Time = post.Time;
+            post.Histories.Add(history);
             //post.PostInTopics
-            //_context.Histories.Add(post.Histories);
             //Update Images
             if (request.Image != null)
             {

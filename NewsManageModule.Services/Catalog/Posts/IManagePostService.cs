@@ -22,5 +22,6 @@ namespace NewsManageModule.Services.Catalog.Posts
         Task<int> UpdateImage(int RID, PostImageUpdateRequest request);
         Task<int> RemoveImage(int RID);
         Task<List<ResourceViewModel>> GetListImages(int ID);
+        Task<List<HistoryViewModel>> GetEditHistories(int ID);
     }
 }

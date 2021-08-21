@@ -35,7 +35,8 @@ namespace NewsManageModule.BackendAPI.Controllers
 
         // Register account: ./api/users/register
         [HttpPost("register")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Register([FromForm] RegisterRequest request)
         {
             if (!ModelState.IsValid)

@@ -24,27 +24,27 @@ namespace NewsManageModule.BackendAPI.Controllers
             _managePostService = managePostService;
         }
 
-        // Get all Posts exist: ./api/posts
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            //return Ok("Demo successed!");
-            PagingRequestBase demoRequest = new PagingRequestBase()
-            {
-                pageIndex = 1,  //demo
-                pageSize = 3    //demo
-            };
-            var posts = await _publicPostService.GetAll(demoRequest);
-            return Ok(posts);
-        }
+        //// Get all Posts exist: ./api/posts
+        //[HttpGet]
+        //public async Task<IActionResult> Get()
+        //{
+        //    //return Ok("Demo successed!");
+        //    PagingRequestBase demoRequest = new PagingRequestBase()
+        //    {
+        //        pageIndex = 1,  //demo
+        //        pageSize = 3    //demo
+        //    };
+        //    var posts = await _publicPostService.GetAll(demoRequest);
+        //    return Ok(posts);
+        //}
 
-        // Get list posts by Topic ID: ./api/posts/public-by-topic
-        [HttpGet("public-by-topic")]
-        public async Task<IActionResult> GetGetAllByTopicID([FromQuery] GetPostPublicRequest request)
-        {
-            var posts = await _publicPostService.GetAllByTopicID(request);
-            return Ok(posts);
-        }
+        //// Get list posts by Topic ID: ./api/posts/public-by-topic
+        //[HttpGet("public-by-topic")]
+        //public async Task<IActionResult> GetGetAllByTopicID([FromQuery] GetPostPublicRequest request)
+        //{
+        //    var posts = await _publicPostService.GetAllByTopicID(request);
+        //    return Ok(posts);
+        //}
 
         // Get post detail by ID: ./api/posts/{id}
         [HttpGet("{id}")]
@@ -94,9 +94,18 @@ namespace NewsManageModule.BackendAPI.Controllers
             return Ok();
         }
 
-        // Get list posts paging by keyword and topicID: ./api/post/get-search-allpaging
-        [HttpGet("get-search-allpaging")]
-        public async Task<IActionResult> GetSearchAllPaging([FromQuery] GetPostManageRequest request)
+        //// Get list posts paging by keyword and topicID: ./api/post/get-search-allpaging
+        //[HttpGet("get-search-allpaging")]
+        //public async Task<IActionResult> GetSearchAllPaging([FromQuery] GetPostManageRequest request)
+        //{
+        //    var posts = await _managePostService.GetAllPaging(request);
+        //    if (posts == null || posts.TotalRecord == 0)
+        //        return BadRequest("No result");
+        //    return Ok(posts);
+        //}
+        // Get list posts paging by keyword and topicID: ./api/post
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] GetPostManageRequest request)
         {
             var posts = await _managePostService.GetAllPaging(request);
             if (posts == null || posts.TotalRecord == 0)
@@ -172,6 +181,14 @@ namespace NewsManageModule.BackendAPI.Controllers
         {
             var images = await _managePostService.GetListImages(id);
             return Ok(images);
+        }
+
+        // Get list edit histories of post: ./api/posts/{id}/histories
+        [HttpGet("{id}/histories")]
+        public async Task<IActionResult> GetEditHistory(int id)
+        {
+            var histories = await _managePostService.GetEditHistories(id);
+            return Ok(histories);
         }
     }
 }

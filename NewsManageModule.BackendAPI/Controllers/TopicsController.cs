@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewsManageModule.Services.Catalog.Topics;
 using System;
@@ -10,6 +11,7 @@ namespace NewsManageModule.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TopicsController : ControllerBase
     {
         private readonly ITopicService _topicService;
@@ -20,6 +22,7 @@ namespace NewsManageModule.BackendAPI.Controllers
 
         // Get All Topic: ./api/topics
         [HttpGet]
+        //[]
         public async Task<IActionResult> Get()
         {
             var topics = await _topicService.GetAll();
