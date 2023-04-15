@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" /> -->
+		<!-- <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" /> -->
+		<!-- <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.17" /> -->
+		<!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
+		<PackageReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>	
+	
+  <ItemGroup>
+    <ProjectReference Include="..\NewsManageModule.Data\NewsManageModule.Data.csproj" />
+    <ProjectReference Include="..\NewsManageModule.Helpers\NewsManageModule.Helpers.csproj" />
+    <ProjectReference Include="..\NewsManageModule.ViewModels\NewsManageModule.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
